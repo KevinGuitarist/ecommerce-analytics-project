@@ -1,234 +1,225 @@
-# 🛒 E-Commerce Sales & Customer Analytics
+# 🛒 E-Commerce Sales & Customer Analytics (Python + SQL + Power BI)
+
+---
 
 ## 📌 Project Overview
 
-This project performs an **end-to-end analysis of an e-commerce retail dataset** to understand sales performance, customer purchasing behavior, and product trends.
+This project performs an **end-to-end data analytics workflow** on an e-commerce dataset to extract meaningful business insights and support decision-making.
 
-The objective is to simulate how a **data analyst working in an e-commerce company** would analyze transactional data to generate **actionable business insights**.
+It simulates how a **data analyst in a real company** would:
 
-The project covers the full analytics workflow:
-
-• Data cleaning and preprocessing
-• Exploratory data analysis using Python
-• Customer segmentation using **RFM analysis**
-• Business intelligence dashboard using **Power BI**
-
----
-
-# 🎯 Business Problem
-
-An e-commerce company wants to answer several key questions:
-
-* Which **products generate the highest revenue?**
-* How does **revenue change over time?**
-* Which **countries contribute the most sales?**
-* Who are the **most valuable customers?**
-* Which customers are **at risk of leaving?**
-
-Answering these questions allows businesses to:
-
-* Improve **marketing campaigns**
-* Optimize **product strategies**
-* Increase **customer retention**
-* Identify **high-value customer segments**
+* Clean and transform raw transactional data
+* Perform exploratory data analysis (EDA)
+* Build customer segments using **RFM analysis**
+* Create an **interactive Power BI dashboard**
+* Use **SQL for structured data querying**
 
 ---
 
-# 📊 Dashboard Preview
+## 🎯 Business Objective
 
-![Ecommerce Dashboard](images/dashboard.png)
+The goal is to answer critical business questions:
 
-The Power BI dashboard summarizes the most important business insights from the dataset.
-
----
-
-# 📂 Dataset
-
-The dataset used is the **Online Retail Dataset**, which contains real transactional data from a UK-based e-commerce store.
-
-### Dataset Characteristics
-
-* **541,909 transactions**
-* **8 key attributes**
-* Data recorded between **2010 – 2011**
-
-### Key Features
-
-| Column      | Description                |
-| ----------- | -------------------------- |
-| InvoiceNo   | Unique order identifier    |
-| StockCode   | Product identifier         |
-| Description | Product name               |
-| Quantity    | Number of items purchased  |
-| InvoiceDate | Date of purchase           |
-| UnitPrice   | Price per item             |
-| CustomerID  | Unique customer identifier |
-| Country     | Customer location          |
+* Which **products drive the most revenue?**
+* How does **sales trend over time?**
+* Which **countries contribute most revenue?**
+* Who are the **top customers?**
+* Which customers are **at risk of churn?**
 
 ---
 
-# 🧹 Data Cleaning & Preparation
+## 📊 Dashboard Preview
 
-Before analysis, several preprocessing steps were performed:
+![Dashboard](images/dashboard.png)
 
-• Removed rows with **missing customer IDs**
-• Removed **cancelled transactions**
-• Created a **Revenue column**
-• Extracted **monthly sales trends**
+---
 
-Example feature engineering:
+## 📂 Dataset
+
+* **Online Retail Dataset (UCI / UK-based store)**
+* **~541,000+ transactions**
+* Time period: **2010–2011**
+
+### Key Columns
+
+| Column      | Description         |
+| ----------- | ------------------- |
+| InvoiceNo   | Order ID            |
+| StockCode   | Product ID          |
+| Description | Product name        |
+| Quantity    | Units purchased     |
+| InvoiceDate | Transaction date    |
+| UnitPrice   | Price per unit      |
+| CustomerID  | Customer identifier |
+| Country     | Customer location   |
+
+---
+
+## 🧹 Data Cleaning & Feature Engineering
+
+Performed using **Python (Pandas)**:
+
+* Removed missing Customer IDs
+* Filtered cancelled transactions
+* Created **Revenue column**
+* Extracted **Month & Year features**
 
 ```python
 df['Revenue'] = df['Quantity'] * df['UnitPrice']
 df['Month'] = df['InvoiceDate'].dt.to_period('M')
 ```
 
-### Dataset after cleaning
+---
 
-| Stage            | Rows    |
-| ---------------- | ------- |
-| Original dataset | 541,909 |
-| After cleaning   | 397,924 |
+## 🧠 SQL Analysis (NEW 💣)
+
+Used SQL to perform structured querying and aggregation:
+
+* Revenue calculation using `GROUP BY`
+* Customer-level aggregation
+* Top products and countries extraction
+
+Example:
+
+```sql
+SELECT Description, SUM(Quantity * UnitPrice) AS Revenue
+FROM retail_data
+GROUP BY Description
+ORDER BY Revenue DESC
+LIMIT 10;
+```
+
+👉 Demonstrates ability to work with **relational databases + analytics queries**
 
 ---
 
-# 📈 Analysis Performed
+## 📈 Analysis Performed
 
-## 1️⃣ Monthly Revenue Trend
+### 1️⃣ Monthly Revenue Trend
 
-Analyzed how revenue changes across months.
-
-**Insight:**
-Revenue increases significantly between **September and November**, indicating strong seasonal demand during the holiday period.
+* Identified **seasonal spikes**
+* Peak sales observed during **holiday months (Sep–Nov)**
 
 ---
 
-## 2️⃣ Top Products by Revenue
+### 2️⃣ Top Products Analysis
 
-Identified the **top 10 products contributing the most revenue**.
-
-This insight helps businesses:
-
-* Focus marketing on high-performing products
-* Improve inventory planning
-* Optimize product promotion
+* Top 10 products contribute **significant portion of revenue**
+* Helps in **inventory and marketing optimization**
 
 ---
 
-## 3️⃣ Revenue by Country
+### 3️⃣ Country-wise Revenue
 
-Examined which geographic markets contribute most to revenue.
-
-**Insight:**
-The **United Kingdom accounts for the majority of sales**, while other European countries contribute smaller portions of revenue.
+* **UK dominates revenue**
+* Other countries contribute smaller shares
 
 ---
 
-## 4️⃣ Customer Segmentation (RFM Analysis)
+### 4️⃣ Customer Segmentation (RFM)
 
-Customers were segmented using **RFM metrics**:
+Customers segmented into:
 
-| Metric    | Meaning                    |
-| --------- | -------------------------- |
-| Recency   | Days since last purchase   |
-| Frequency | Number of purchases        |
-| Monetary  | Total spending by customer |
+* **VIP** → High value
+* **Loyal** → Frequent buyers
+* **Regular** → Average
+* **At Risk** → Potential churn
 
-Customers were grouped into segments:
-
-• **VIP Customers** – highest spending customers
-• **Loyal Customers** – frequent buyers
-• **Regular Customers** – average purchasing activity
-• **At Risk Customers** – customers who haven't purchased recently
-
-This segmentation helps companies run **targeted marketing campaigns**.
+👉 Enables **targeted marketing strategies**
 
 ---
 
-# 📊 Power BI Dashboard Features
+## 📊 Power BI Dashboard Features
 
-The dashboard provides an interactive overview of business performance:
-
-### Key Performance Indicators
+### 🔑 KPIs
 
 * Total Revenue
-* Total Customers
 * Total Orders
+* Total Customers
+* AOV (Average Order Value)
+* Revenue per Customer
+* Customer Retention %
 
-### Visualizations
+---
+
+### 📊 Visualizations
 
 * Monthly Revenue Trend
-* Top 10 Products by Revenue
-* Revenue by Country
-* Customer Segmentation (RFM)
+* Top 10 Products
+* Top 10 Countries
+* Customer Segmentation (Pie Chart)
+* Top Customers Table
 
 ---
 
-# 🛠 Tools & Technologies
+### ⚡ Interactivity
 
-| Tool         | Purpose               |
-| ------------ | --------------------- |
-| Python       | Data analysis         |
-| Pandas       | Data manipulation     |
-| NumPy        | Numerical computation |
-| Matplotlib   | Data visualization    |
-| Power BI     | Interactive dashboard |
-| Git & GitHub | Version control       |
+* Dynamic **slicers (Year, Country, Segment)**
+* Interactive filtering across visuals
 
 ---
 
-# 📁 Project Structure
+## 🛠 Tech Stack
+
+| Tool         | Purpose                     |
+| ------------ | --------------------------- |
+| Python       | Data cleaning & EDA         |
+| Pandas       | Data manipulation           |
+| SQL          | Data querying & aggregation |
+| Power BI     | Dashboard creation          |
+| Git & GitHub | Version control             |
+
+---
+
+## 📁 Project Structure
 
 ```
-Ecommerce-Analytics-Project
+Ecommerce-Analytics-Project/
 │
-├── data
-│   ├── online_retail.xlsx
+├── data/
 │   ├── cleaned_retail_data.csv
-│   └── customer_rfm.csv
 │
-├── notebooks
-│   └── analysis.py
+├── sql/
+│   └── analysis.sql
 │
-├── images
+├── powerbi/
+│   └── ecommerce_dashboard.pbix
+│
+├── images/
 │   └── dashboard.png
 │
-├── ecommerce_sales_dashboard.pbix
+├── notebooks/
+│   └── analysis.py
 │
 └── README.md
 ```
 
 ---
 
-# 💡 Key Business Insights
+## 💡 Key Insights
 
-From the analysis:
-
-• Revenue peaks during **holiday shopping months**
-• A small group of products generates **a large share of revenue**
-• The **UK market dominates total sales**
-• **VIP and loyal customers contribute a significant portion of revenue**
-• Identifying **at-risk customers** enables targeted retention strategies
+* Revenue peaks during **holiday season**
+* A few products generate **majority of revenue**
+* **UK is dominant market**
+* **VIP & Loyal customers drive business**
+* Identifying **At Risk customers** enables retention strategies
 
 ---
 
-# 🚀 Future Improvements
+## 🚀 Resume Highlights
 
-Potential enhancements to this project include:
-
-* Building **sales forecasting models**
-* Predicting **customer churn**
-* Performing **customer lifetime value analysis**
-* Creating a **fully interactive BI report**
+* Built an **end-to-end analytics pipeline (Python → SQL → Power BI)**
+* Developed **interactive dashboard with business KPIs**
+* Implemented **RFM-based customer segmentation**
+* Performed **data cleaning, feature engineering, and aggregation**
 
 ---
 
-# 👨‍💻 Author
+## 👨‍💻 Author
 
 **Vivek Thapa**
-
-Aspiring **Data Analyst** passionate about turning raw data into meaningful business insights.
+Aspiring Data Analyst
 
 ---
 
-⭐ If you found this project interesting, consider **starring the repository**.
+⭐ If you found this project useful, consider starring the repo!
