@@ -183,3 +183,13 @@ df.to_csv("data/cleaned_retail_data.csv", index=False)
 rfm.to_csv("data/customer_rfm.csv")
 
 print("\nProcessed datasets saved successfully.")
+
+# ==============================
+# 12. Business Recommendations
+# ==============================
+print("\nBusiness Recommendations:")
+print("1. Focus marketing and inventory on the top-performing products that drive the highest revenue.")
+print("2. Target the At Risk customer segment with reactivation campaigns to recover lost lifetime value.")
+print("3. Expand growth efforts in non-UK markets with localized offers and pricing strategies.")
+print("4. Use RFM and AOV metrics to personalize promotions for VIP and Loyal customers.")
+print("5. Monitor dashboard KPIs monthly and validate improvements with A/B testing.")

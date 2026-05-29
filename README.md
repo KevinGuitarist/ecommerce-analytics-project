@@ -215,7 +215,17 @@ Ecommerce-Analytics-Project/
 
 ---
 
-## 👨‍💻 Author
+## � Business Recommendations
+
+* Prioritize the top revenue-generating products in promotions and inventory planning to maximize return on marketing spend.
+* Launch targeted retention campaigns for the “At Risk” customer segment to recover high-value customers before they churn.
+* Expand focus on high-potential international markets outside the UK by localizing offers and optimizing pricing.
+* Use AOV and RFM segment insights to personalize offers for VIP, Loyal, and Regular customers.
+* Track these recommendations monthly with the dashboard KPIs and refine them through A/B testing.
+
+---
+
+## �👨‍💻 Author
 
 **Vivek Thapa**
 Aspiring Data Analyst
